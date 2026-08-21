@@ -11,6 +11,7 @@
   var statusPill = document.getElementById('station-status');
   var statusDot = document.getElementById('status-dot');
   var shareButton = document.getElementById('share-button');
+  var spotifyButton = document.getElementById('spotify-button');
   var volume = 0.7;
   var lastVolume = volume;
   audio.volume = volume;
@@ -82,6 +83,17 @@
   setClock();
   window.setInterval(setClock, 1000);
 
+  // Costruisce un link di ricerca Spotify (nessuna API, nessuna chiave, nessun account developer).
+  function updateSpotifyLink(title, artist) {
+    if (!spotifyButton) return;
+    var query = (artist + ' ' + title).trim();
+    if (!query) {
+      spotifyButton.href = 'https://open.spotify.com/search';
+      return;
+    }
+    spotifyButton.href = 'https://open.spotify.com/search/' + encodeURIComponent(query);
+  }
+
   function setTrack(title, artist, live) {
     title = typeof title === 'string' ? title.trim() : '';
     artist = typeof artist === 'string' ? artist.trim() : '';
@@ -90,6 +102,7 @@
     if (!title || !artist || invalidArtist || invalidTitle) return;
     document.getElementById('track-title').textContent = title;
     document.getElementById('track-artist').textContent = artist;
+    updateSpotifyLink(title, artist);
     window.requestAnimationFrame(updateMarquees);
     if (live !== null && typeof live !== 'undefined') {
       statusPill.textContent = live ? 'Live' : 'Offline';
