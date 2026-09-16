@@ -34,9 +34,7 @@
   function updatePlayerState(playing) {
     player.classList.toggle('is-playing', playing);
     playButton.setAttribute('aria-label', playing ? 'Metti in pausa lo stream' : 'Riproduci lo stream');
-    statusPill.textContent = playing ? 'Live' : 'Offline';
-    statusPill.classList.toggle('live', playing);
-    statusDot.classList.toggle('is-live', playing);
+    
   }
 
   playButton.addEventListener('click', function () {
