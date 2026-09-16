@@ -157,6 +157,7 @@
     for (var i = 0; i < fields.length; i += 1) if (typeof fields[i] === 'boolean') return fields[i];
     return null;
   }
+  
   var metadataRetryDelay = 3000;
 function refreshMetadata(isRetry) {
   var endpoints = ['https://api.laut.fm/station/lunabeige/current_song', 'https://api.laut.fm/station/lunabeige'];
