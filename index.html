@@ -12,7 +12,19 @@
 
   <script>
   if (window.location.hostname.includes('github.io')) {
-    window.location.replace('https://lunabeigefm.pages.dev/' + window.location.search + window.location.hash);
+    window.location.replace(
+      'https://lunabeigefm.pages.dev/' +
+      window.location.search +
+      window.location.hash
+    );
+  }
+
+  if (
+    window.location.hostname === 'lunabeigefm.pages.dev' &&
+    !sessionStorage.getItem('lunabeigefm_refreshed')
+  ) {
+    sessionStorage.setItem('lunabeigefm_refreshed', 'true');
+    window.location.reload(true);
   }
   </script>
   
