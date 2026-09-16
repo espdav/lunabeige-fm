@@ -97,8 +97,8 @@
   function setTrack(title, artist, live) {
     title = typeof title === 'string' ? title.trim() : '';
     artist = typeof artist === 'string' ? artist.trim() : '';
-    var invalidArtist = /^(sconosciuto|unknown|n\/a|n\.a\.)$/i.test(artist);
-    var invalidTitle = /^(in attesa del prossimo brano|lunabeige)$/i.test(title);
+    var invalidArtist = /^(connessione al server…|unknown|n\/a|n\.a\.)$/i.test(artist);
+    var invalidTitle = /^(connessione al server…|lunabeige)$/i.test(title);
     if (!title || !artist || invalidArtist || invalidTitle) return;
     document.getElementById('track-title').textContent = title;
     document.getElementById('track-artist').textContent = artist;
@@ -128,7 +128,7 @@
       if (lowerTitle.indexOf(lowerArtist + ' - ') === 0 || lowerTitle.indexOf(lowerArtist + ' — ') === 0) title = title.slice(artist.length + 3).trim();
     }
     var invalidArtist = !artist || /^(sconosciuto|unknown|n\/a|n\.a\.)$/i.test(String(artist).trim());
-    var invalidTitle = !title || /^(in attesa del prossimo brano|lunabeige)$/i.test(String(title).trim());
+    var invalidTitle = !title || /^(connessione al server…|lunabeige)$/i.test(String(title).trim());
     return !invalidTitle && !invalidArtist ? { title: String(title).trim(), artist: String(artist).trim() } : null;
   }
 
