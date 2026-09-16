@@ -158,8 +158,16 @@
     return null;
   }
   
-  var metadataRetryDelay = 3000;
-function refreshMetadata(isRetry) {
+  var metadataRetryDelay = 2000;
+var metadataPollDelay = 20000;
+var metadataTimer = null;
+
+function scheduleMetadata(delay) {
+  window.clearTimeout(metadataTimer);
+  metadataTimer = window.setTimeout(refreshMetadata, delay);
+}
+
+function refreshMetadata() {
   var endpoints = ['https://api.laut.fm/station/lunabeige/current_song', 'https://api.laut.fm/station/lunabeige'];
   Promise.any(endpoints.map(function (url) {
     return fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' }).then(function (response) {
@@ -171,19 +179,18 @@ function refreshMetadata(isRetry) {
     var live = readLive(data);
     if (song) {
       setTrack(song.title, song.artist, live === null ? true : live);
-      metadataRetryDelay = 3000;
-    } else if (!isRetry) {
-      window.setTimeout(function () { refreshMetadata(true); }, metadataRetryDelay);
+      metadataRetryDelay = 2000;
+      scheduleMetadata(metadataPollDelay);
+    } else {
+      scheduleMetadata(metadataRetryDelay);
+      metadataRetryDelay = Math.min(metadataRetryDelay * 1.5, metadataPollDelay);
     }
   }).catch(function () {
-    if (!isRetry) {
-      window.setTimeout(function () { refreshMetadata(true); }, metadataRetryDelay);
-      metadataRetryDelay = Math.min(metadataRetryDelay * 2, 15000);
-    }
+    scheduleMetadata(metadataRetryDelay);
+    metadataRetryDelay = Math.min(metadataRetryDelay * 1.5, metadataPollDelay);
   });
 }
 refreshMetadata();
-window.setInterval(function () { refreshMetadata(false); }, 20000);
   
   var form = document.getElementById('newsletter-form');
   var email = document.getElementById('email');
