@@ -157,16 +157,33 @@
     for (var i = 0; i < fields.length; i += 1) if (typeof fields[i] === 'boolean') return fields[i];
     return null;
   }
-  function refreshMetadata() {
-    var endpoints = ['https://api.laut.fm/station/lunabeige/current_song', 'https://api.laut.fm/station/lunabeige'];
-    Promise.any(endpoints.map(function (url) { return fetch(url, { headers: { Accept: 'application/json' } }).then(function (response) { if (!response.ok) throw new Error('metadata'); return response.json(); }); })).then(function (data) {
-      var song = readSong(data); var live = readLive(data);
-      if (song) setTrack(song.title, song.artist, live === null ? true : live);
-    }).catch(function () {});
-  }
-  refreshMetadata();
-  window.setInterval(refreshMetadata, 20000);
-
+  var metadataRetryDelay = 3000;
+function refreshMetadata(isRetry) {
+  var endpoints = ['https://api.laut.fm/station/lunabeige/current_song', 'https://api.laut.fm/station/lunabeige'];
+  Promise.any(endpoints.map(function (url) {
+    return fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' }).then(function (response) {
+      if (!response.ok) throw new Error('metadata');
+      return response.json();
+    });
+  })).then(function (data) {
+    var song = readSong(data);
+    var live = readLive(data);
+    if (song) {
+      setTrack(song.title, song.artist, live === null ? true : live);
+      metadataRetryDelay = 3000;
+    } else if (!isRetry) {
+      window.setTimeout(function () { refreshMetadata(true); }, metadataRetryDelay);
+    }
+  }).catch(function () {
+    if (!isRetry) {
+      window.setTimeout(function () { refreshMetadata(true); }, metadataRetryDelay);
+      metadataRetryDelay = Math.min(metadataRetryDelay * 2, 15000);
+    }
+  });
+}
+refreshMetadata();
+window.setInterval(function () { refreshMetadata(false); }, 20000);
+  
   var form = document.getElementById('newsletter-form');
   var email = document.getElementById('email');
   var subscribeButton = document.getElementById('subscribe-button');
