@@ -11,26 +11,40 @@
   <link rel="canonical" href="https://lunabeigefm.pages.dev/">
   
   <script>
+  (async () => {
+  // Redirect da GitHub Pages
   if (window.location.hostname.includes('github.io')) {
     window.location.replace(
       'https://lunabeigefm.pages.dev/' +
       window.location.search +
       window.location.hash
     );
+    return;
   }
 
+  // Prima apertura su Lunabeige FM
   if (
     window.location.hostname === 'lunabeigefm.pages.dev' &&
-    !sessionStorage.getItem('lunabeigefm_cache_busted')
+    !sessionStorage.getItem('lunabeigefm_hard_refresh')
   ) {
-    sessionStorage.setItem('lunabeigefm_cache_busted', 'true');
+    sessionStorage.setItem('lunabeigefm_hard_refresh', 'true');
 
+    // Svuota le cache controllabili dalla Cache API
+    if ('caches' in window) {
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames.map(cacheName => caches.delete(cacheName))
+      );
+    }
+
+    // Nuovo URL per evitare la cache della navigazione
     const url = new URL(window.location.href);
-    url.searchParams.set('_cb', Date.now());
+    url.searchParams.set('_refresh', Date.now());
 
-    window.location.replace(url.toString());
+    window.location.replace(url.href);
   }
-  </script>
+})();
+</script>
   
   <meta property="og:locale" content="it_IT">
   <meta property="og:type" content="website">
