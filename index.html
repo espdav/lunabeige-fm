@@ -9,7 +9,7 @@
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta name="theme-color" content="#f5f8fd">
   <link rel="canonical" href="https://lunabeigefm.pages.dev/">
-
+  
   <script>
   if (window.location.hostname.includes('github.io')) {
     window.location.replace(
@@ -21,10 +21,14 @@
 
   if (
     window.location.hostname === 'lunabeigefm.pages.dev' &&
-    !sessionStorage.getItem('lunabeigefm_refreshed')
+    !sessionStorage.getItem('lunabeigefm_cache_busted')
   ) {
-    sessionStorage.setItem('lunabeigefm_refreshed', 'true');
-    window.location.reload(true);
+    sessionStorage.setItem('lunabeigefm_cache_busted', 'true');
+
+    const url = new URL(window.location.href);
+    url.searchParams.set('_cb', Date.now());
+
+    window.location.replace(url.toString());
   }
   </script>
   
