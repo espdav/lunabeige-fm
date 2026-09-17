@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  var WORKER_URL = 'https://lunabeige-beehiiv.davex270.workers.dev/';
+  var WORKER_URL = 'https://lunabeige-beehiiv.espdav.workers.dev/';
   var audio = document.getElementById('stream');
   var player = document.getElementById('radio-player');
   var playButton = document.getElementById('play-toggle');
