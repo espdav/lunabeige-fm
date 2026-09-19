@@ -207,7 +207,7 @@ refreshMetadata();
       .catch(function (err) { email.disabled = false; subscribeButton.disabled = false; subscribeButton.textContent = 'Iscriviti a Lunabeige'; error.textContent = err.message || 'Errore di connessione. Riprova.'; error.hidden = false; });
   });
 
-  var SUBSTACK_WORKER_URL = 'https://lunabeige-substack.TUO-ACCOUNT.workers.dev/'; // <-- sostituisci con il tuo URL worker
+  var SUBSTACK_WORKER_URL = 'https://substack.espdav.workers.dev/'; // <-- sostituisci con il tuo URL worker
   var formSubstack = document.getElementById('newsletter-form-substack');
   var emailSubstack = document.getElementById('email-substack');
   var subscribeButtonSubstack = document.getElementById('subscribe-button-substack');
