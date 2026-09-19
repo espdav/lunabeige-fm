@@ -206,4 +206,22 @@ refreshMetadata();
       .then(function () { subscribeButton.classList.add('success'); subscribeButton.textContent = 'Grazie sei iscritto!'; email.value = ''; })
       .catch(function (err) { email.disabled = false; subscribeButton.disabled = false; subscribeButton.textContent = 'Iscriviti a Lunabeige'; error.textContent = err.message || 'Errore di connessione. Riprova.'; error.hidden = false; });
   });
+
+  var SUBSTACK_WORKER_URL = 'https://lunabeige-substack.TUO-ACCOUNT.workers.dev/'; // <-- sostituisci con il tuo URL worker
+  var formSubstack = document.getElementById('newsletter-form-substack');
+  var emailSubstack = document.getElementById('email-substack');
+  var subscribeButtonSubstack = document.getElementById('subscribe-button-substack');
+  var errorSubstack = document.getElementById('newsletter-error-substack');
+  formSubstack.addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!emailSubstack.checkValidity()) { emailSubstack.reportValidity(); return; }
+    subscribeButtonSubstack.disabled = true;
+    emailSubstack.disabled = true;
+    subscribeButtonSubstack.innerHTML = '<span class="spinner" aria-label="Invio in corso"></span>';
+    errorSubstack.hidden = true;
+    fetch(SUBSTACK_WORKER_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: emailSubstack.value.trim() }) })
+      .then(function (response) { return response.json().catch(function () { return {}; }).then(function (data) { if (!response.ok) throw new Error(data.error || 'Qualcosa è andato storto.'); return data; }); })
+      .then(function () { subscribeButtonSubstack.classList.add('success'); subscribeButtonSubstack.textContent = 'Grazie sei iscritto!'; emailSubstack.value = ''; })
+      .catch(function (err) { emailSubstack.disabled = false; subscribeButtonSubstack.disabled = false; subscribeButtonSubstack.textContent = 'Iscriviti a Lunabeige'; errorSubstack.textContent = err.message || 'Errore di connessione. Riprova.'; errorSubstack.hidden = false; });
+  });
 }());
