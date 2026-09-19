@@ -136,7 +136,7 @@
 
     <section class="newsletter" aria-labelledby="newsletter-title">
       <div class="newsletter-copy"><h3 id="newsletter-title">Una creazione e selezione musicale di Davide Esposito</h3><p>Ricevi aggiornamenti sulla radio e su altri miei progetti nella mia newsletter.</p></div>
-      <div class="newsletter-form-wrap">
+      <div class="newsletter-form-wrap" id="newsletter-form-wrap-beehiiv">
         <form id="newsletter-form" class="newsletter-form" novalidate>
           <input id="email" name="email" type="email" required autocomplete="email" placeholder="La tua email" aria-label="La tua email">
           <button id="subscribe-button" type="submit">Iscriviti a Lunabeige</button>
@@ -144,13 +144,14 @@
         <p id="newsletter-error" class="newsletter-error" role="alert" hidden></p>
         <p class="consent">Iscrivendoti accetti la <a href="https://www.beehiiv.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> e i <a href="https://www.beehiiv.com/tou" target="_blank" rel="noopener">Termini d'Uso</a> di Beehiiv.</p>
       </div>
-
-      <iframe
-  id="substack-signup-iframe"
-  src="https://substack.espdav.workers.dev/"
-  style="display:none;"
-  title="Substack newsletter signup">
-</iframe>
+      <div class="newsletter-form-wrap" id="newsletter-form-wrap-substack">
+  <form id="newsletter-form-substack" class="newsletter-form" novalidate>
+    <input id="email-substack" name="email" type="email" required autocomplete="email" placeholder="La tua email" aria-label="La tua email">
+    <button id="subscribe-button-substack" type="submit">Iscriviti a Lunabeige</button>
+  </form>
+  <p id="newsletter-error-substack" class="newsletter-error" role="alert" hidden></p>
+  <p class="consent">Iscrivendoti accetti i <a href="https://substack.com/tos" target="_blank" rel="noopener">Termini d'Uso</a> e l'<a href="https://substack.com/privacy" target="_blank" rel="noopener">Informativa sulla Privacy</a> di Substack.</p>
+</div>
     </section>
 
     <footer><p>© 2026 <a href="https://espdav.framer.website/" target="_blank" rel="noopener">Davide Esposito</a>. Tutti i diritti riservati.</p></footer>
