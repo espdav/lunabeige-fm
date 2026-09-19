@@ -145,12 +145,54 @@
         <p class="consent">Iscrivendoti accetti la <a href="https://www.beehiiv.com/privacy" target="_blank" rel="noopener">Privacy Policy</a> e i <a href="https://www.beehiiv.com/tou" target="_blank" rel="noopener">Termini d'Uso</a> di Beehiiv.</p>
       </div>
       <div class="newsletter-form-wrap" id="newsletter-form-wrap-substack">
+
   <form id="newsletter-form-substack" class="newsletter-form" novalidate>
-    <input id="email-substack" name="email" type="email" required autocomplete="email" placeholder="La tua email" aria-label="La tua email">
-    <button id="subscribe-button-substack" type="submit">Iscriviti a Lunabeige</button>
+
+    <input
+      id="email-substack"
+      name="email"
+      type="email"
+      required
+      autocomplete="email"
+      placeholder="La tua email"
+      aria-label="La tua email"
+    >
+
+    <button
+      id="subscribe-button-substack"
+      type="submit"
+    >
+      Iscriviti a Lunabeige
+    </button>
+
   </form>
-  <p id="newsletter-error-substack" class="newsletter-error" role="alert" hidden></p>
-  <p class="consent">Iscrivendoti accetti i <a href="https://substack.com/tos" target="_blank" rel="noopener">Termini d'Uso</a> e l'<a href="https://substack.com/privacy" target="_blank" rel="noopener">Informativa sulla Privacy</a> di Substack.</p>
+
+  <p
+    id="newsletter-error-substack"
+    class="newsletter-error"
+    role="alert"
+    hidden>
+  </p>
+
+  <iframe
+    id="substack-signup-iframe"
+    src="https://substack.espdav.workers.dev/"
+    style="display:none;"
+    title="Substack newsletter signup">
+  </iframe>
+
+  <p class="consent">
+    Iscrivendoti accetti i
+    <a href="https://substack.com/tos" target="_blank" rel="noopener">
+      Termini d'Uso
+    </a>
+    e l'
+    <a href="https://substack.com/privacy" target="_blank" rel="noopener">
+      Informativa sulla Privacy
+    </a>
+    di Substack.
+  </p>
+
 </div>
     </section>
 
